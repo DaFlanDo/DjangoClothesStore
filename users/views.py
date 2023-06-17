@@ -1,8 +1,11 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from users.models import User
-from users.forms import UserLoginForm,UserRegisterForm,UserProfileForm
+from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from django.urls import reverse
 from django.contrib import auth, messages
+from products.models import Product, Baskets
+from django.contrib.auth.decorators import login_required
 
 # Авторизация
 def login(request):
@@ -23,6 +26,7 @@ def login(request):
     return render(request, 'users/login.html',context)
 
 
+# Регистрация
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(data=request.POST)
@@ -34,7 +38,11 @@ def register(request):
         form = UserRegisterForm()
     context = {'form': form}
 
-    return render(request, 'users/register.html',context)
+    return render(request, 'users/register.html', context)
+
+
+# Профиль
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(instance= request.user,data = request.POST,files=request.FILES)
@@ -44,8 +52,11 @@ def profile(request):
             print(form.errors)
             return redirect(reverse('users:profile'))
     form = UserProfileForm(instance=request.user)
-    context = {'title':'Store','form':form}
-    return render(request, 'users/profile.html',context)
+    context = {'title': 'Store', 'form': form,'baskets': Baskets.objects.filter(user=request.user)}
+    return render(request, 'users/profile.html', context)
+
+
+# Выход
 def logout(request):
     auth.logout(request)
     return redirect(reverse('index'))

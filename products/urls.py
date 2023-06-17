@@ -1,8 +1,14 @@
 from django.urls import path
-from products.views import index,products
+
+from products.views import index, products, basket_add, basket_remove
 
 app_name = 'products'
 urlpatterns = [
-path('',products,name='index')
+    path('', products, name='index'),
+    path('baskets/add/<int:product_id>/', basket_add, name='basket/add'),
+    path('baskets/remove/<int:baskets_id>/', basket_remove, name='basket/remove'),
+    path('category/<int:category_id>/', products,name='category'),
+    path('page/<int:page_number>/',products,name='paginator'),
+
 ]
 
