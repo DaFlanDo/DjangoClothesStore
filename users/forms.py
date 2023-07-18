@@ -1,6 +1,10 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
-from users.models import User
+from users.models import User,EmailVerification
 from django import forms
+from django.utils.timezone import now
+import uuid
+from datetime import timedelta
+
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -43,9 +47,26 @@ class UserRegisterForm(UserCreationForm):
         'placeholder': 'Подтвердите пароль'
     }))
 
+    def save(self, commit=True):
+        user = super(UserRegisterForm, self).save(commit=True)
+        expiration = now() + timedelta(hours=24)
+        record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
+        record.send_verification_code()
+        return user
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Этот адрес электронной почты уже используется.')
+        return email
+
+
+
+
 
 
 class UserProfileForm(UserChangeForm):

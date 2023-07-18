@@ -1,7 +1,9 @@
 from django.contrib import admin
 
 from products.admin import BasketsAdmin
-from users.models import User
+from users.models import User,EmailVerification
+
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'email', 'last_name',  'is_staff', 'date_joined',)
@@ -10,4 +12,10 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ('id',)
     inlines = [BasketsAdmin]
 
+
+@admin.register(EmailVerification)
+class UserEmailVerification(admin.ModelAdmin):
+    list_display = ('user','code','expiration',)
+    fields = ('user','code','expiration','on_created',)
+    readonly_fields = ('on_created',)
 # Register your models here.

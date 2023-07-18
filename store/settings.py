@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DOMAIN_NAME = 'http://localhost:8000'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -125,4 +127,11 @@ DEFAULT_CHARSET = 'utf8'
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+# Email send
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'djangostore@mail.ru'
+EMAIL_HOST_PASSWORD = 'CPr8AHfhKTJT2kvYwN1H'
+EMAIL_USE_SSL = True
