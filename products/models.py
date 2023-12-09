@@ -6,12 +6,15 @@ from users.models import User
 class ProductCategory(models.Model):
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(null=True, blank=True)
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = "Категории"
 
     def __str__(self):
         return f"{self.name}"
+
+
 class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -49,4 +52,3 @@ class Baskets(models.Model):
 
     def sum(self):
         return self.quantity * self.product.price
-
