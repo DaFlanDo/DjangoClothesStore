@@ -8,7 +8,7 @@ from common.views import TitleMixin
 
 # Create your views here.
 
-class IndexView(TitleMixin,TemplateView):
+class IndexView(TitleMixin, TemplateView):
     template_name = 'products/index.html'
     title = 'Store - Главная страница'
 
@@ -17,7 +17,7 @@ class IndexView(TitleMixin,TemplateView):
         return context
 
 
-class ProductListView(TitleMixin,ListView):
+class ProductListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 1
@@ -37,7 +37,7 @@ class ProductListView(TitleMixin,ListView):
 # Products URL
 
 @login_required
-def basket_add(request, product_id):
+def basket_add(request, product_id):  # добавление товаров в корзину
     product = Product.objects.get(id=product_id)
     baskets = Baskets.objects.filter(user=request.user, product=product)
 
@@ -50,7 +50,7 @@ def basket_add(request, product_id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-def basket_remove(request, baskets_id):
+def basket_remove(request, baskets_id):  # удаление товаров из корзины
     basket = Baskets.objects.get(id=baskets_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])

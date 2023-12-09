@@ -47,26 +47,16 @@ class UserRegisterForm(UserCreationForm):
         'placeholder': 'Подтвердите пароль'
     }))
 
-    def save(self, commit=True):
-        user = super(UserRegisterForm, self).save(commit=True)
-        expiration = now() + timedelta(hours=24)
-        record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
-        record.send_verification_code()
-        return user
-
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Этот адрес электронной почты уже используется.')
-        return email
-
-
-
-
+    def save(self,commit = True):
+        user = super(UserRegisterForm,self).save(commit= True)
+        expiration = now()+timedelta(hours=24)
+        record = EmailVerification.objects.create(code=uuid.uuid4(),user=user,expiration=expiration)
+        record.send_verification_code()
+        return user
 
 
 class UserProfileForm(UserChangeForm):

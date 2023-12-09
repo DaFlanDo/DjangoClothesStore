@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 
 
-# Добавление модели кастомного пользвателя
+# Добавление модели кастомного пользователя
 
 
 class User(AbstractUser):
@@ -31,13 +31,13 @@ class EmailVerification(models.Model):
         link = reverse('users:EmailVerif', kwargs={'email': self.user.email, 'code': self.code})
         verif_link = f'{settings.DOMAIN_NAME}{link}'
         subject = f'To confirm mail in the service Store for {self.user.username}'
-        message = f'To confirm mail in service Store go to link {verif_link}'
         print(self.user.email)
 
         send_mail(
             subject=subject,
-            message = '',
-            html_message= render_to_string('users/Mail.html',{'verif_link':verif_link,'username':self.user.username}),
+            message='',
+            html_message=render_to_string('users/Mail.html',
+                                          {'verif_link': verif_link, 'username': self.user.username}),
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.user.email],
             fail_silently=False,
@@ -45,5 +45,3 @@ class EmailVerification(models.Model):
 
     def is_expired(self):
         return True if now() >= self.expiration else False
-
-
