@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link href="{% static 'vendor/css/reset_done.css' %}" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Email Sent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="background-shapes">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+    </div>
+    <div class="container">
+        <h1>Письмо было отправлено</h1>
+        <p>Письмо с инструкциями по смене пароля было отправлено на указанный адрес электронной почты.</p>
+        <p>Проверьте свою почту и следуйте инструкциям. Если вы не получили письмо в течение нескольких минут, проверьте папку со спамом.</p>
+        <p>Вернуться на <a href="{% url 'index' %}" class="link">главную</a></p>
+    </div>
+</body>
+
+</html>
