@@ -140,3 +140,7 @@ EMAIL_HOST_USER = 'djangostore@mail.ru'
 EMAIL_HOST_PASSWORD = 'CPr8AHfhKTJT2kvYwN1H'
 EMAIL_USE_SSL = True
 SECURE_SSL_REDIRECT = False
+LOGIN_URL='index'
+
+
+DEFAULT_FROM_EMAIL = 'djangostore@mail.ru'

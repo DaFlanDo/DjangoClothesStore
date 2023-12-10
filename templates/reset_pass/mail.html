@@ -1,0 +1,145 @@
+ <!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f5ff;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background-color: #4c9ee3;
+        }
+
+        .shape1 {
+            width: 150px;
+            height: 150px;
+            top: -75px;
+            left: -75px;
+        }
+
+        .shape2 {
+            width: 100px;
+            height: 100px;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .header {
+            background-color: #4c9ee3;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .reset-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            text-decoration: none;
+            background-color: #4c9ee3;
+            color: #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .reset-btn:hover {
+            background-color: #4c9ee3;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            background-color: #4c9ee3;
+            color: #ffffff;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                border-radius: 0;
+            }
+
+            .background-shapes .shape {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Password Reset</h1>
+        </div>
+        <div class="content">
+            <p>Hello,</p>
+            <p>Мы получили запрос на смену пароля, чтобы сменить пароль нажмите на кнопку снизу</p>
+            <a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}"
+                class="reset-btn">Сбросить пароль</a>
+
+            <p>Если вы не подавили заявки на изменения пароля, просто проигнорируйте это письмо</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 DjangoStore</p>
+        </div>
+    </div>
+</body>
+
+</html>

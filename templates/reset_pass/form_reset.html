@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <link rel="stylesheet" href="{% static '/vendor/css/reset_pass.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+ 
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="shape3"></div>
+    </div>
+    <div class="reset-container">
+        <h2>Password Reset</h2>
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            {# Выводим ошибки в желаемом формате #}
+            {% for error in form.non_field_errors %}
+                <p class="error-message">{{ error }}</p>
+            {% endfor %}
+
+            {# Выводим поля формы вручную #}
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <p class="error-message">{{ form.email.errors.0 }}</p>
+            {% endif %}
+
+            {# Добавьте другие поля формы таким же образом #}
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
